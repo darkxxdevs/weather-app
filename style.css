@@ -34,8 +34,8 @@ body {
     width: 40%;
     z-index: 999;
     background: transparent;
-    backdrop-filter: blur(70px);
-    border-radius: 20px;
+    backdrop-filter: blur(30px);
+    border-radius: 50px;
 }
 
 #search {

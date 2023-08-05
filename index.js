@@ -1,8 +1,13 @@
-
-const searchBar = document.getElementById("search-input")
+// global access variables
+const temSpace = document.getElementById("temprature");
+const cityName = document.getElementById("city");
+const humidPercent = document.getElementById("humidity-percent");
+const windSpeed = document.getElementById("wind-speed");
+const searchBar = document.getElementById("search-input");
 
 searchBar.addEventListener("focus", () => {
     searchBar.placeholder = '';
+
 });
 
 searchBar.addEventListener("blur", () => {
@@ -12,30 +17,48 @@ searchBar.addEventListener("blur", () => {
 })
 
 
-// api part 
-const apiUrl = "https://www.weatherapi.com/v"
-const apiKey = 'fd068f17ed4c4a67afb144907230408'
 
-async function fetchData() {
+// api part 
+
+async function fetchData(city) {
+    const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=${encodeURIComponent(city)}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '60d64744a6mshf25bd05979f35fdp100c91jsnba74712d9184',
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+    };
 
     try {
-        const response = await fetch(apiUrl, {
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json'
-            }
-        })
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result)
+        temSpace.innerHTML = `${result.current.temp_c}°C`;
+        cityName.innerHTML = `${result.location.name}`;
+        humidPercent.innerHTML = `${result.current.humidity}%`
+        windSpeed.innerHTML = `${result.current.wind_kph} km/h`
 
-        if (!response.ok) {
-            throw new Error("Network refused response ")
-        }
-
-        const data = response.json();
-        console.log(data);
-    }
-    catch (error) {
-        console.error('Error fetching data:', error);
+    } catch (error) {
+        console.error(error);
     }
 }
 
-fetchData();
+function handleSearch() {
+    const searchLocation = document.getElementById('search-input').value;
+    fetchData(searchLocation);
+
+}
+
+// keypress enevnt handling 
+document.getElementById("search-input").addEventListener("keypress", (event) => {
+
+    if (event.key === "Enter") {
+        handleSearch();
+    }
+})
+
+document.getElementById("search-button").addEventListener("click", () => {
+    handleSearch();
+})
+
