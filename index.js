@@ -4,6 +4,7 @@ const cityName = document.getElementById("city");
 const humidPercent = document.getElementById("humidity-percent");
 const windSpeed = document.getElementById("wind-speed");
 const searchBar = document.getElementById("search-input");
+const dayNightIcon = document.getElementById("day-night-icon")
 
 searchBar.addEventListener("focus", () => {
     searchBar.placeholder = '';
@@ -38,6 +39,8 @@ async function fetchData(city) {
         cityName.innerHTML = `${result.location.name}`;
         humidPercent.innerHTML = `${result.current.humidity}%`
         windSpeed.innerHTML = `${result.current.wind_kph} km/h`
+        console.log(result);
+
 
     } catch (error) {
         console.error(error);
