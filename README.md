@@ -1,4 +1,4 @@
-# Weather Web App README
+# Weather Web App 
 
 This Weather Web App is a simple web application built using HTML, CSS, and JavaScript. It fetches weather data from a Weather API and provides users with accurate weather details for their searched location. The app is designed to be user-friendly, intuitive, and responsive across various devices.
 
